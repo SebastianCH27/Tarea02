@@ -198,10 +198,42 @@ de estar definida mediante una política de cobro explícita.
 
 ## Actividad 5 Herencia inconsistente
 
-Analizar qué ocurre al combinar la matrícula general con una
-especialización, colocando primero la clase general.
+Si se combina la matrícula general con una de sus especializaciones,
+colocando primero la general, se tendría esta declaración:
 
-Pendiente de desarrollo.
+```python
+class MatriculaIncorrecta(MatriculaGeneral, MatriculaBeca):
+    pass
+```
+
+Python genera un TypeError al intentar crear esta clase,
+porque no puede construir un MRO consistente.
+
+### Causa del problema
+
+La declaración establece dos exigencias incompatibles:
+
+1. Por el orden de las clases base, MatriculaGeneral debería
+   aparecer antes que MatriculaBeca.
+
+2. Como MatriculaBeca hereda de MatriculaGeneral, la especialización
+   debe aparecer antes que su clase padre dentro del MRO.
+
+Python no puede cumplir ambas condiciones al mismo tiempo.
+Por eso rechaza la creación de MatriculaIncorrecta.
+
+### Tipo de error
+
+La declaración tiene una sintaxis válida, pero su jerarquía
+de herencia es inconsistente. Por eso se produce un TypeError,
+no un SyntaxError.
+
+El error aparece al crear la clase, antes de poder construir
+un objeto o calcular el costo de una matrícula.
+
+MatriculaBeca ya hereda de MatriculaGeneral, por lo que una
+nueva clase que herede de MatriculaBeca también tendrá a
+MatriculaGeneral como antecesora.
 
 ## Actividad 6 Propuesta de rediseño
 
