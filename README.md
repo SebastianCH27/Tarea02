@@ -126,10 +126,42 @@ sin continuar la cadena.
 
 ## Actividad 3 Cálculo de los cobros
 
-Calcular los importes de las dos versiones y explicar su relación
-con los cobros realizados a Luis y Rosa.
+### Primera versión
 
-Pendiente de desarrollo.
+Las modificaciones se aplican en este orden:
+
+1. Derecho base: S/ 60.00.
+2. Recargo por matrícula extemporánea: 60 + 15 = S/ 75.00.
+3. Recargo por índice desaprobatorio: 75 + 15 = S/ 90.00.
+4. Beca del 50 %: 90 × 0.5 = S/ 45.00.
+
+El total de la primera versión es S/ 45.00.
+
+### Segunda versión
+
+Las modificaciones se aplican en este orden:
+
+1. Derecho base: S/ 60.00.
+2. Beca del 50 %: 60 × 0.5 = S/ 30.00.
+3. Recargo por matrícula extemporánea: 30 + 15 = S/ 45.00.
+4. Recargo por índice desaprobatorio: 45 + 15 = S/ 60.00.
+
+El total de la segunda versión es S/ 60.00.
+
+### Cobro por estudiante
+
+El documento no especifica qué versión utilizó cada estudiante.
+Para presentar los resultados, suponemos que Luis utilizó la
+primera versión y Rosa la segunda.
+
+| Estudiante | Versión utilizada | Total |
+|---|---|---|
+| Luis Huamaní Cárdenas | Primera versión | S/ 45.00 |
+| Rosa Ccahuana Prado | Segunda versión | S/ 60.00 |
+
+Bajo esta suposición, Rosa pagó S/ 15.00 más que Luis.
+Si se intercambian las versiones utilizadas, también se
+intercambian los importes de ambos estudiantes.
 
 ## Actividad 4 Explicación de la diferencia
 
