@@ -237,8 +237,58 @@ MatriculaGeneral como antecesora.
 
 ## Actividad 6 Propuesta de rediseño
 
-Proponer una solución que permita establecer explícitamente
-el orden de los ajustes y decidir si la beca se aplica antes
-o después de los recargos.
+Se propone que cada matrícula tenga una lista ordenada de ajustes.
+Cada ajuste recibe el monto actual y devuelve el monto modificado.
 
-Pendiente de desarrollo.
+El orden de aplicación se establece al agregar los ajustes a la lista.
+Así, la política de cobro queda definida explícitamente para cada
+matrícula.
+
+### Clases del rediseño
+
+| Clase | Responsabilidad |
+|---|---|
+| Matricula | Guardar los datos del estudiante, el derecho base y la lista ordenada de ajustes. Calcular el total. |
+| Ajuste | Definir el comportamiento común aplicar(monto). |
+| RecargoExtemporaneo | Agregar S/ 15.00 por matrícula fuera de fecha. |
+| RecargoDesaprobado | Agregar S/ 15.00 por índice académico desaprobatorio. |
+| Beca | Reducir a la mitad el monto recibido. |
+
+Las clases de recargo y beca heredan de Ajuste.
+Matricula utiliza estos objetos para realizar el cálculo.
+
+Las dos versiones combinadas del diseño original se conservan
+para analizar el problema. En el rediseño, las condiciones se
+combinan mediante la lista de ajustes.
+
+### Funcionamiento
+
+1. El cálculo empieza con el derecho base de S/ 60.00.
+2. Se seleccionan los ajustes que corresponden al estudiante.
+3. Se agregan en el orden establecido por la política de cobro.
+4. La matrícula recorre la lista y aplica cada ajuste al monto acumulado.
+5. Se devuelve el total.
+
+### Orden de aplicación
+
+| Política | Orden de los ajustes | Total |
+|---|---|---|
+| Beca después de los recargos | Extemporáneo, desaprobado y beca. | S/ 45.00 |
+| Beca antes de los recargos | Beca, extemporáneo y desaprobado. | S/ 60.00 |
+
+La OTI debe establecer qué política corresponde.
+Para estudiantes con las mismas condiciones y la misma política,
+se utilizarán los mismos ajustes en el mismo orden.
+
+Por ejemplo, si la beca debe reducir todo el monto, Luis y Rosa
+tendrán ambos recargos primero y la beca al final. Los dos
+pagarán S/ 45.00.
+
+### Aplicación de los cuatro pilares de POO
+
+| Pilar | Aplicación |
+|---|---|
+| Abstracción | Ajuste define el comportamiento común aplicar(monto). |
+| Encapsulamiento | Matricula guarda sus datos y la lista de ajustes en atributos privados. |
+| Herencia | Los recargos y Beca heredan de Ajuste. |
+| Polimorfismo | Matricula llama a aplicar(monto) y cada ajuste ejecuta su propia operación. |
