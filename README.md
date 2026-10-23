@@ -17,9 +17,6 @@ situaciones especiales:
 - Índice académico desaprobatorio: recargo de S/ 15.00.
 - Beca por afectación de la violencia sociopolítica: reducción del 50 %.
 
-## Actividad 1 Identificación de clases y relaciones
-
-### Clases identificadas
 
 ## Actividad 1 Identificación de clases y relaciones
 
@@ -66,10 +63,66 @@ Por eso existen varios caminos de herencia hacia la misma clase base.
 
 ## Actividad 2 Orden de resolución de métodos
 
-Determinar el MRO de cada versión y explicar cómo se resuelve
-el cálculo del costo.
+El MRO es el orden que sigue Python para buscar los métodos
+en una jerarquía de herencia.
 
-Pendiente de desarrollo.
+En este caso, cada especialización primero obtiene el resultado
+de super().calcular_costo() y después aplica su recargo o descuento.
+
+### MRO de cada versión
+
+| Posición | MatriculaVersion1 | MatriculaVersion2 |
+|---|---|---|
+| 1 | MatriculaVersion1 | MatriculaVersion2 |
+| 2 | MatriculaBeca | MatriculaDesaprobado |
+| 3 | MatriculaDesaprobado | MatriculaExtemporanea |
+| 4 | MatriculaExtemporanea | MatriculaBeca |
+| 5 | MatriculaGeneral | MatriculaGeneral |
+| 6 | object | object |
+
+Las clases combinadas no tienen un método calcular_costo() propio.
+Por eso Python continúa buscando en sus especializaciones,
+siguiendo el orden de la tabla.
+
+### Primera versión
+
+Python encuentra calcular_costo() en MatriculaBeca.
+Ese método espera el resultado de MatriculaDesaprobado,
+que a su vez espera el de MatriculaExtemporanea.
+Finalmente, MatriculaGeneral devuelve el derecho base de S/ 60.00.
+
+Cuando las llamadas regresan, se realizan estas operaciones:
+
+1. MatriculaExtemporanea agrega su recargo.
+2. MatriculaDesaprobado agrega su recargo.
+3. MatriculaBeca aplica el descuento al monto acumulado.
+
+### Segunda versión
+
+Python encuentra calcular_costo() en MatriculaDesaprobado.
+Ese método espera el resultado de MatriculaExtemporanea,
+que a su vez espera el de MatriculaBeca.
+Finalmente, MatriculaGeneral devuelve el derecho base de S/ 60.00.
+
+Cuando las llamadas regresan, se realizan estas operaciones:
+
+1. MatriculaBeca aplica el descuento al derecho base.
+2. MatriculaExtemporanea agrega su recargo.
+3. MatriculaDesaprobado agrega su recargo.
+
+### Funcionamiento de super()
+
+En herencia múltiple, super() continúa con la siguiente clase
+del MRO del objeto. No necesariamente llama directamente
+a la clase padre declarada en la especialización.
+
+El orden de búsqueda sigue el MRO, pero los ajustes se aplican
+cuando regresan las llamadas, porque cada método necesita
+primero el resultado de super().calcular_costo().
+
+La clase object forma parte del MRO, pero no interviene en
+el cálculo, porque MatriculaGeneral devuelve el monto base
+sin continuar la cadena.
 
 ## Actividad 3 Cálculo de los cobros
 
