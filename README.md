@@ -165,10 +165,36 @@ intercambian los importes de ambos estudiantes.
 
 ## Actividad 4 Explicación de la diferencia
 
-Explicar por qué cambian los importes y por qué ninguna de las
-dos versiones presenta un error de sintaxis.
+### Por qué se obtienen cobros distintos
 
-Pendiente de desarrollo.
+La diferencia aparece porque la beca se aplica en momentos distintos.
+
+En la primera versión, primero se agregan los dos recargos.
+Después, la beca reduce a la mitad todo el monto acumulado:
+
+(60 + 15 + 15) × 0.5 = S/ 45.00.
+
+En la segunda versión, la beca reduce solamente el derecho base.
+Los dos recargos se agregan después y conservan su valor completo:
+
+(60 × 0.5) + 15 + 15 = S/ 60.00.
+
+Por eso se obtiene una diferencia de S/ 15.00. Los recargos son
+los mismos; lo que cambia es el monto sobre el que actúa la beca.
+
+### Por qué no existe un error de sintaxis
+
+Las dos declaraciones de herencia múltiple son válidas.
+Python puede construir un MRO consistente para cada versión
+y resolver sus llamadas a super().
+
+Cambiar el orden de las clases base es válido en estas dos
+versiones, pero también cambia el orden en que se aplican
+las modificaciones al monto.
+
+El problema está en el diseño del cálculo: la aplicación
+de la beca depende del orden de las clases base, en lugar
+de estar definida mediante una política de cobro explícita.
 
 ## Actividad 5 Herencia inconsistente
 
